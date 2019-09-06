@@ -1,0 +1,1 @@
+/**/const int motorpin=3;String trigger;void setup() {    pinMode(motorpin,OUTPUT);    digitalWrite(motorpin,LOW);    Serial.begin(9600);    Serial.setTimeout(10);}void loop() {    //wut}void serialEvent(){  trigger= Serial.readString();  if(trigger == "GO"){    digitalWrite(motorpin,HIGH);    delay(500);    digitalWrite(motorpin,LOW);  }}
