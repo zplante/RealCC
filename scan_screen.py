@@ -9,7 +9,9 @@ import serial
 #image used for testing text recognition and image
 #image = cv2.imread('TRAPPEDFULL.jpg')
 
-
+#replace with port name
+port = '/dev/cu.usbmodem14201'
+ser = serial.Serial(port,9600) 
 sct = mss()
 #used for cooldown
 previous_time = 0
@@ -64,14 +66,12 @@ while True :
 	#img.save("toread.jpg")
 	CC=["TRAPPED","SLEEP","PINNED","HACKED","STUNNED"]
 	status=pytesseract.image_to_string(img)
-	print(status)
+	cur_time = time.time()
 	for effect in CC:
 		if effect in status:
-			print("y")
-			img.save("CC_"+str(time.time())+".jpg","JPEG")
-	txt1 = 'fps: %.1f' % ( 1./( time.time() - previous_time ))
-	previous_time = time.time()
-	print(txt1)
+			if curtime - previous_time > .5:
+				ser.write(b'GO')
+	previous_time = cur_time
 	#uncomment the below break for testing
 	#break
 
